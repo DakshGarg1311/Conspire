@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conspire - Uncover the Truth</title>
+    <link rel="stylesheet" href="index.css">
+   
+</head>
+<body>
+    <!-- Animated starfield background -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Conspire</div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')">Home</a></li>
+                <li><a onclick="showPage('browse')">Browse Theories</a></li>
+                <li><a onclick="showPage('submit')">Submit Theory</a></li>
+                <li><a onclick="showPage('profile')">Profile</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary" onclick="showAuthModal('login')">Login</button>
+                <button class="btn btn-primary" onclick="showAuthModal('register')">Join</button>
+            </div>
+            <button class="mobile-menu-toggle">☰</button>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <!-- Home page -->
+        <div class="page active" id="home">
+            <section class="hero">
+                <h1>Conspire</h1>
+                <p>Uncover the Truth. One Theory at a Time.</p>
+                <a href="#" class="hero-cta" onclick="showPage('browse')">Join the Discussion</a>
+            </section>
+
+            <section class="trending">
+                <h2>Trending Theories</h2>
+                <div class="theories-grid">
+                    <div class="theory-card" onclick="showTheoryDetail(1)">
+                        <h3>The Internet Was Designed for Mass Surveillance</h3>
+                        <div class="theory-meta">
+                            <span>by DeepThought42</span>
+                            <span>Tech Takeover</span>
+                        </div>
+                        <p>Evidence suggests the internet infrastructure was purposefully designed with backdoors for monitoring and control. The protocols we use daily contain hidden mechanisms...</p>
+                        <div class="theory-stats">
+                            <span>👍 847</span>
+                            <span>👎 203</span>
+                            <span>💬 156</span>
+                            <span>👁️ 12.3k</span>
+                        </div>
+                    </div>
+
+                    <div class="theory-card" onclick="showTheoryDetail(2)">
+                        <h3>Ancient Civilizations Had Advanced Technology</h3>
+                        <div class="theory-meta">
+                            <span>by ArcheoTruth</span>
+                            <span>Ancient Civilizations</span>
+                        </div>
+                        <p>Archaeological evidence points to sophisticated technology in ancient times that mainstream science refuses to acknowledge. From precision stone cutting to...</p>
+                        <div class="theory-stats">
+                            <span>👍 1.2k</span>
+                            <span>👎 87</span>
+                            <span>💬 234</span>
+                            <span>👁️ 18.7k</span>
+                        </div>
+                    </div>
+
+                    <div class="theory-card" onclick="showTheoryDetail(3)">
+                        <h3>The Hidden Agenda Behind Social Media</h3>
+                        <div class="theory-meta">
+                            <span>by TruthSeeker99</span>
+                            <span>Tech Takeover</span>
+                        </div>
+                        <p>Social media platforms aren't just connecting people - they're sophisticated behavioral modification tools designed to influence thoughts and actions...</p>
+                        <div class="theory-stats">
+                            <span>👍 956</span>
+                            <span>👎 134</span>
+                            <span>💬 298</span>
+                            <span>👁️ 15.2k</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Browse theories page -->
+        <div class="page" id="browse">
+            <div class="browse-header">
+                <h2 style="color: #00ff41; font-size: 2.5rem; margin-bottom: 2rem;">Browse Theories</h2>
+                
+                <div class="search-filter">
+                    <input type="text" class="search-box" placeholder="Search theories..." id="searchInput">
+                    <select class="category-filter" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="aliens">Aliens & UFOs</option>
+                        <option value="government">Government Secrets</option>
+                        <option value="ancient">Ancient Civilizations</option>
+                        <option value="tech">Tech Takeover</option>
+                        <option value="medical">Medical Cover-ups</option>
+                        <option value="financial">Financial Control</option>
+                    </select>
+                </div>
+
+                <div class="categories">
+                    <div class="category-tag active" onclick="filterByCategory('all')">🔍 All</div>
+                    <div class="category-tag" onclick="filterByCategory('aliens')">👽 Aliens</div>
+                    <div class="category-tag" onclick="filterByCategory('government')">🏛️ Government</div>
+                    <div class="category-tag" onclick="filterByCategory('ancient')">🏺 Ancient</div>
+                    <div class="category-tag" onclick="filterByCategory('tech')">🤖 Tech</div>
+                    <div class="category-tag" onclick="filterByCategory('medical')">💉 Medical</div>
+                    <div class="category-tag" onclick="filterByCategory('financial')">💰 Financial</div>
+                </div>
+            </div>
+
+            <div class="trending">
+                <div class="theories-grid" id="theoriesGrid">
+                    <!-- Theories will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Theory detail page -->
+        <div class="page" id="theory-detail">
+            <div class="theory-detail">
+                <button class="btn btn-secondary" onclick="showPage('browse')" style="margin-bottom: 2rem;">
+                    ← Back to Browse
+                </button>
+                
+                <div class="theory-header">
+                    <h1 class="theory-title" id="theoryTitle">Theory Title</h1>
+                    <div class="theory-author">
+                        <div class="author-avatar" id="authorAvatar">DT</div>
+                        <div>
+                            <div>by <span id="authorName">DeepThought42</span></div>
+                            <div style="opacity: 0.7; font-size: 0.9rem;" id="theoryDate">Posted 2 days ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="theory-content" id="theoryContent">
+                    <!-- Theory content will be loaded here -->
+                </div>
+
+                <div class="theory-actions">
+                    <button class="vote-button upvote">
+                        <span>👍</span>
+                        <span id="upvoteCount">847</span>
+                    </button>
+                    <button class="vote-button downvote">
+                        <span>👎</span>
+                        <span id="downvoteCount">203</span>
+                    </button>
+                    <button class="vote-button">
+                        <span>💬</span>
+                        <span id="commentCount">156</span>
+                    </button>
+                    <button class="vote-button">
+                        <span>🚩</span>
+                        <span>Report</span>
+                    </button>
+                </div>
+
+                <div class="comments">
+                    <h3 style="color: #00ff41; margin-bottom: 1rem;">Comments</h3>
+                    
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">SkepticalMind</span>
+                            <span class="comment-date">1 day ago</span>
+                        </div>
+                        <p>This is fascinating research. The timing of these protocol implementations definitely raises questions about the true intent behind the design choices.</p>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">NetworkAnalyst</span>
+                            <span class="comment-date">18 hours ago</span>
+                        </div>
+                        <p>I've been working in networking for 15 years and some of these observations are spot on. The <span class="redacted">████████</span> protocols especially seem designed for <span class="redacted">████████</span>.</p>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">TruthSeeker99</span>
+                            <span class="comment-date">12 hours ago</span>
+                        </div>
+                        <p>Have you looked into the connections between early internet developers and government agencies? The paper trail is very revealing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit theory page -->
+        <div class="page" id="submit">
+            <div class="submit-form">
+                <h2 style="color: #00ff41; font-size: 2.5rem; margin-bottom: 2rem; text-align: center;">Submit a Theory</h2>
+                
+                <form id="theoryForm">
+                    <div class="form-group">
+                        <label for="theoryTitleInput">Theory Title</label>
+                        <input type="text" id="theoryTitleInput" placeholder="Enter your theory title..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="theoryCategoryInput">Category</label>
+                        <select id="theoryCategoryInput" required>
+                            <option value="">Select a category</option>
+                            <option value="aliens">Aliens & UFOs</option>
+                            <option value="government">Government Secrets</option>
+                            <option value="ancient">Ancient Civilizations</option>
+                            <option value="tech">Tech Takeover</option>
+                            <option value="medical">Medical Cover-ups</option>
+                            <option value="financial">Financial Control</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="theoryDescriptionInput">Theory Description</label>
+                        <textarea id="theoryDescriptionInput" placeholder="Describe your theory in detail..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="theoryEvidenceInput">Evidence & Sources</label>
+                        <textarea id="theoryEvidenceInput" placeholder="List your evidence, sources, and supporting materials..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="theoryMediaInput">Media Attachments (Optional)</label>
+                        <input type="file" id="theoryMediaInput" multiple accept="image/*,video/*,.pdf,.doc,.docx">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+                        Submit Theory
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Profile page -->
+        <div class="page" id="profile">
+            <div class="profile">
+                <div class="profile-header">
+                    <div class="profile-avatar">DT</div>
+                    <div class="profile-info">
+                        <h1>DeepThought42</h1>
+                        <p>Truth seeker since 2019. Specializing in technology and surveillance theories.</p>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Theories</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">3.2k</div>
+                                <div class="stat-label">Upvotes</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">847</div>
+                                <div class="stat-label">Comments</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">156</div>
+                                <div class="stat-label">Followers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-theories">
+                    <h2 style="color: #00ff41; margin-bottom: 2rem;">My Theories</h2>
+                    <div class="theories-grid">
+                        <div class="theory-card">
+                            <h3>The Internet Was Designed for Mass Surveillance</h3>
+                            <div class="theory-meta">
+                                <span>Tech Takeover</span>
+                                <span>2 days ago</span>
+                            </div>
+                            <p>Evidence suggests the internet infrastructure was purposefully designed with backdoors...</p>
+                            <div class="theory-stats">
+                                <span>👍 847</span>
+                                <span>👎 203</span>
+                                <span>💬 156</span>
+                                <span>👁️ 12.3k</span>
+                            </div>
+                        </div>
+
+                        <div class="theory-card">
+                            <h3>Social Media Algorithm Manipulation</h3>
+                            <div class="theory-meta">
+                                <span>Tech Takeover</span>
+                                <span>1 week ago</span>
+                            </div>
+                            <p>The algorithms that control what we see are designed to create division and control...</p>
+                            <div class="theory-stats">
+                                <span>👍 623</span>
+                                <span>👎 89</span>
+                                <span>💬 87</span>
+                                <span>👁️ 8.9k</span>
+                            </div>
+                        </div>
+
+                        <div class="theory-card">
+                            <h3>The Truth About Encrypted Messaging</h3>
+                            <div class="theory-meta">
+                                <span>Government Secrets</span>
+                                <span>2 weeks ago</span>
+                            </div>
+                            <p>Popular encrypted messaging apps may not be as secure as they claim...</p>
+                            <div class="theory-stats">
+                                <span>👍 1.1k</span>
+                                <span>👎 267</span>
+                                <span>💬 234</span>
+                                <span>👁️ 16.7k</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Authentication Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeAuthModal()">×</button>
+            <h2 id="authTitle">Login</h2>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthMode('login')">Login</button>
+                <button class="auth-tab" onclick="switchAuthMode('register')">Register</button>
+            </div>
+
+            <form id="authForm">
+                <div class="form-group">
+                    <label for="authEmail">Email or Username</label>
+                    <input type="text" id="authEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="authPassword">Password</label>
+                    <input type="password" id="authPassword" required>
+                </div>
+
+                <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                    <label for="authConfirmPassword">Confirm Password</label>
+                    <input type="password" id="authConfirmPassword">
+                </div>
+
+                <div class="form-group" id="aliasGroup" style="display: none;">
+                    <label for="authAlias">Alias (Public Username)</label>
+                    <input type="text" id="authAlias" placeholder="Choose your anonymous identity...">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    <span id="authSubmitText">Login</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+   <script>
+    
+        // Mock data for theories
+        const theoriesData = [
+            {
+                id: 1,
+                title: "The Internet Was Designed for Mass Surveillance",
+                author: "DeepThought42",
+                category: "tech",
+                description: "Evidence suggests the internet infrastructure was purposefully designed with backdoors for monitoring and control...",
+                fullDescription: "The internet, as we know it today, wasn't just an accident of innovation. Deep within the protocols and infrastructure lie deliberate design choices that enable mass surveillance. From the DNS system to the routing protocols, every aspect was carefully crafted to allow monitoring and control.\n\nThe evidence is overwhelming when you look at the timing of releases, the involvement of government agencies in early development, and the convenient 'backdoors' that exist in fundamental internet protocols. The TCP/IP stack itself contains mechanisms that allow for deep packet inspection and traffic analysis.\n\nConsider the development timeline: ARPANET was created by DARPA (Defense Advanced Research Projects Agency) in the late 1960s. The same agency that develops military technology and surveillance systems. This wasn't a coincidence.\n\nThe DNS system, which translates domain names to IP addresses, is centrally controlled and monitored. Every website you visit, every service you use, creates a log entry that can be tracked and analyzed. The routing protocols ensure that data can be intercepted at multiple points along its journey.\n\nEven encryption standards have been influenced by government agencies. The NSA's involvement in developing encryption algorithms has been documented, and there's evidence that some standards contain deliberate weaknesses.",
+                evidence: "TCP/IP protocol analysis, DARPA funding documents, NSA involvement in encryption standards, DNS architecture documentation",
+                upvotes: 847,
+                downvotes: 203,
+                comments: 156,
+                views: 12300,
+                date: "2 days ago"
+            },
+            {
+                id: 2,
+                title: "Ancient Civilizations Had Advanced Technology",
+                author: "ArcheoTruth",
+                category: "ancient",
+                description: "Archaeological evidence points to sophisticated technology in ancient times that mainstream science refuses to acknowledge...",
+                fullDescription: "Throughout history, we've discovered artifacts and structures that challenge our understanding of ancient civilizations' technological capabilities. From precision stone cutting that rivals modern machinery to electrical components found in ancient contexts, the evidence suggests our ancestors possessed knowledge far beyond what mainstream archaeology admits.\n\nThe precision of ancient stonework, particularly in sites like Puma Punku and the Egyptian pyramids, demonstrates engineering capabilities that would be challenging even today. The tolerances achieved in fitting massive stone blocks together are measured in fractions of millimeters.\n\nElectrical artifacts like the Baghdad Battery show that ancient civilizations understood electrical principles. The Antikythera Mechanism demonstrates complex gear systems and astronomical calculations that weren't supposed to exist until centuries later.\n\nMany ancient texts describe flying vehicles, advanced weapons, and technologies that sound remarkably similar to modern inventions. The Sanskrit epics describe vimanas (flying machines) with detailed specifications that parallel modern aircraft design principles.",
+                evidence: "Archaeological artifacts, precision measurements of ancient structures, ancient texts describing advanced technology, metallurgical analysis of ancient alloys",
+                upvotes: 1200,
+                downvotes: 87,
+                comments: 234,
+                views: 18700,
+                date: "5 days ago"
+            },
+            {
+                id: 3,
+                title: "The Hidden Agenda Behind Social Media",
+                author: "TruthSeeker99",
+                category: "tech",
+                description: "Social media platforms aren't just connecting people - they're sophisticated behavioral modification tools...",
+                fullDescription: "Social media platforms represent the most sophisticated behavioral modification and social control system ever created. What appears to be innocent networking and communication tools are actually advanced psychological manipulation platforms designed to influence thoughts, behaviors, and societal trends.\n\nThe algorithms that determine what content you see aren't neutral. They're designed to maximize engagement, which often means promoting content that triggers strong emotional responses - anger, fear, outrage. This creates a feedback loop that gradually shapes users' worldviews and emotional states.\n\nThe data collection goes far beyond what users consciously share. Every click, pause, scroll speed, and interaction is recorded and analyzed. This creates detailed psychological profiles that can predict behavior with startling accuracy.\n\nThe timing of when content is shown to users is deliberately manipulated to influence decision-making. Political content, advertising, and even personal posts from friends are algorithmically timed to maximize their impact on users' thoughts and actions.\n\nThe addictive nature of these platforms isn't accidental - it's engineered using the same psychological principles used in gambling and addiction.",
+                evidence: "Algorithm analysis, internal company documents, psychological research on social media addiction, data collection practices documentation",
+                upvotes: 956,
+                downvotes: 134,
+                comments: 298,
+                views: 15200,
+                date: "1 week ago"
+            },
+            {
+                id: 4,
+                title: "The Medical Industry's Suppressed Cures",
+                author: "HealthTruth",
+                category: "medical",
+                description: "Natural remedies and alternative treatments are systematically suppressed to maintain pharmaceutical profits...",
+                fullDescription: "The modern medical industry operates on a profit model that benefits from treating symptoms rather than curing diseases. Natural remedies and alternative treatments that could provide actual cures are systematically suppressed, discredited, or made illegal to protect pharmaceutical profits.\n\nHistorically, many effective natural treatments were common knowledge. Indigenous peoples had sophisticated understanding of plant medicines and healing practices. Much of this knowledge has been deliberately suppressed or co-opted by the pharmaceutical industry.\n\nThe regulatory capture of agencies like the FDA means that approval processes favor expensive synthetic drugs over natural alternatives. The cost of bringing a natural substance through the approval process is prohibitive, while the inability to patent natural compounds means no financial incentive for research.\n\nDoctors who explore alternative treatments often face persecution, license revocation, or worse. The medical establishment maintains control through professional licensing, medical school curricula, and research funding that excludes non-pharmaceutical approaches.",
+                evidence: "Historical medical practices, regulatory agency documents, testimonials from suppressed practitioners, pharmaceutical industry profit analysis",
+                upvotes: 743,
+                downvotes: 289,
+                comments: 167,
+                views: 9800,
+                date: "3 days ago"
+            },
+            {
+                id: 5,
+                title: "The Financial System's Hidden Controllers",
+                author: "MoneyTruth",
+                category: "financial",
+                description: "A small group of financial institutions control the global economy through central banking and debt manipulation...",
+                fullDescription: "The global financial system is controlled by a small network of central banks and financial institutions that manipulate currencies, create debt, and control economic cycles for their benefit. This system of control operates largely in the shadows, hidden from public scrutiny.\n\nCentral banks, despite appearing to be government institutions, are often privately owned or controlled by private banking interests. The Federal Reserve, for example, is owned by member banks and operates with minimal government oversight.\n\nThe fractional reserve banking system allows banks to create money from nothing, lending out far more than they hold in deposits. This creates a system where debt is perpetually expanding, benefiting those who control the money creation process.\n\nInternational financial institutions like the Bank for International Settlements coordinate monetary policy globally, effectively controlling the economic policies of sovereign nations. This creates a system where national governments are subordinate to international financial interests.\n\nEconomic crises are often engineered to transfer wealth from the general population to financial institutions through bailouts, asset purchases, and debt restructuring.",
+                evidence: "Central bank ownership documents, fractional reserve banking analysis, international financial institution policies, historical economic crisis patterns",
+                upvotes: 689,
+                downvotes: 156,
+                comments: 203,
+                views: 11400,
+                date: "6 days ago"
+            },
+            {
+                id: 6,
+                title: "The Truth About UFO Disclosure",
+                author: "SkyWatcher",
+                category: "aliens",
+                description: "Government UFO disclosure is a limited hangout operation designed to control the narrative about extraterrestrial contact...",
+                fullDescription: "The recent government acknowledgment of UFO/UAP phenomena represents a controlled disclosure operation designed to manage public perception while concealing the true extent of extraterrestrial contact and reverse-engineered technology programs.\n\nThe timing of official UFO acknowledgment coincides with the need to explain advanced aerospace capabilities that have been developed in secret programs. By attributing these to 'unknown' phenomena, the government can deploy advanced technology without revealing its true origins.\n\nWhistleblowers and researchers have documented extensive evidence of crashed extraterrestrial vehicles, recovered technology, and ongoing contact programs dating back decades. The recent 'disclosure' represents only a tiny fraction of what's actually known.\n\nThe military-industrial complex has been reverse-engineering extraterrestrial technology for decades, leading to breakthroughs in propulsion, materials science, and energy systems. This technology is kept classified to maintain military and economic advantages.\n\nThe partial disclosure serves to control the narrative, discredit independent researchers, and prepare the public for the gradual revelation of previously classified programs while maintaining secrecy around the most sensitive aspects.",
+                evidence: "Government UFO reports, whistleblower testimonies, classified program documentation, advanced aerospace technology analysis",
+                upvotes: 1034,
+                downvotes: 67,
+                comments: 312,
+                views: 22100,
+                date: "4 days ago"
+            }
+        ];
+
+        // Current state
+        let currentFilter = 'all';
+        let currentSearchTerm = '';
+        let currentUser = null;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            createStarfield();
+            loadTheories();
+            setupEventListeners();
+        });
+
+        // Create animated starfield
+        function createStarfield() {
+            const starfield = document.getElementById('starfield');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starfield.appendChild(star);
+            }
+        }
+
+        // Show page function
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add fade-in animation
+            document.getElementById(pageId).classList.add('fade-in');
+            
+            // Special handling for browse page
+            if (pageId === 'browse') {
+                loadTheories();
+            }
+        }
+
+        // Load theories based on current filter and search
+        function loadTheories() {
+            const grid = document.getElementById('theoriesGrid');
+            if (!grid) return;
+
+            let filteredTheories = theoriesData;
+
+            // Apply category filter
+            if (currentFilter !== 'all') {
+                filteredTheories = filteredTheories.filter(theory => theory.category === currentFilter);
+            }
+
+            // Apply search filter
+            if (currentSearchTerm) {
+                filteredTheories = filteredTheories.filter(theory => 
+                    theory.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
+                    theory.description.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
+                    theory.author.toLowerCase().includes(currentSearchTerm.toLowerCase())
+                );
+            }
+
+            // Generate HTML
+            grid.innerHTML = filteredTheories.map(theory => `
+                <div class="theory-card" onclick="showTheoryDetail(${theory.id})">
+                    <h3>${theory.title}</h3>
+                    <div class="theory-meta">
+                        <span>by ${theory.author}</span>
+                        <span>${getCategoryName(theory.category)}</span>
+                    </div>
+                    <p>${theory.description}</p>
+                    <div class="theory-stats">
+                        <span>👍 ${theory.upvotes}</span>
+                        <span>👎 ${theory.downvotes}</span>
+                        <span>💬 ${theory.comments}</span>
+                        <span>👁️ ${formatViews(theory.views)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            currentFilter = category;
+            
+            // Update active category tag
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update select dropdown
+            document.getElementById('categoryFilter').value = category;
+            
+            loadTheories();
+        }
+
+        // Show theory detail
+        function showTheoryDetail(theoryId) {
+            const theory = theoriesData.find(t => t.id === theoryId);
+            if (!theory) return;
+
+            // Update theory detail page
+            document.getElementById('theoryTitle').textContent = theory.title;
+            document.getElementById('authorName').textContent = theory.author;
+            document.getElementById('authorAvatar').textContent = theory.author.substring(0, 2).toUpperCase();
+            document.getElementById('theoryDate').textContent = `Posted ${theory.date}`;
+            document.getElementById('theoryContent').innerHTML = theory.fullDescription.replace(/\n/g, '</p><p>');
+            document.getElementById('upvoteCount').textContent = theory.upvotes;
+            document.getElementById('downvoteCount').textContent = theory.downvotes;
+            document.getElementById('commentCount').textContent = theory.comments;
+
+            // Add evidence section
+            const evidenceSection = `
+                <h3 style="color: #00ff41; margin-top: 2rem; margin-bottom: 1rem;">Evidence & Sources</h3>
+                <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid #00ff41; border-radius: 5px; padding: 1rem;">
+                    <p>${theory.evidence}</p>
+                </div>
+            `;
+            document.getElementById('theoryContent').innerHTML += evidenceSection;
+
+            showPage('theory-detail');
+        }
+
+        // Show auth modal
+        function showAuthModal(mode) {
+            setAuthMode(mode);
+            document.getElementById('authModal').classList.add('active');
+        }
+
+        // Close auth modal
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        // Switch auth mode
+        function switchAuthMode(mode) {
+            setAuthMode(mode);
+        }
+
+        // Set auth mode
+        function setAuthMode(mode) {
+            const title = document.getElementById('authTitle');
+            const submitText = document.getElementById('authSubmitText');
+            const confirmGroup = document.getElementById('confirmPasswordGroup');
+            const aliasGroup = document.getElementById('aliasGroup');
+            const tabs = document.querySelectorAll('.auth-tab');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            if (mode === 'login') {
+                title.textContent = 'Login';
+                submitText.textContent = 'Login';
+                confirmGroup.style.display = 'none';
+                aliasGroup.style.display = 'none';
+                tabs[0].classList.add('active');
+            } else {
+                title.textContent = 'Register';
+                submitText.textContent = 'Register';
+                confirmGroup.style.display = 'block';
+                aliasGroup.style.display = 'block';
+                tabs[1].classList.add('active');
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search input
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    currentSearchTerm = this.value;
+                    loadTheories();
+                });
+            }
+
+            // Category filter
+            const categoryFilter = document.getElementById('categoryFilter');
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', function() {
+                    currentFilter = this.value;
+                    
+                    // Update category tags
+                    document.querySelectorAll('.category-tag').forEach(tag => {
+                        tag.classList.remove('active');
+                    });
+                    document.querySelector(`[onclick="filterByCategory('${this.value}')"]`).classList.add('active');
+                    
+                    loadTheories();
+                });
+            }
+
+            // Theory form submission
+            const theoryForm = document.getElementById('theoryForm');
+            if (theoryForm) {
+                theoryForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const title = document.getElementById('theoryTitleInput').value;
+                    const category = document.getElementById('theoryCategoryInput').value;
+                    const description = document.getElementById('theoryDescriptionInput').value;
+                    const evidence = document.getElementById('theoryEvidenceInput').value;
+                    
+                    if (title && category && description) {
+                        // In a real app, this would send data to the server
+                        alert('Theory submitted successfully! It will be reviewed before publication.');
+                        
+                        // Reset form
+                        theoryForm.reset();
+                        
+                        // Redirect to browse page
+                        showPage('browse');
+                    }
+                });
+            }
+
+            // Auth form submission
+            const authForm = document.getElementById('authForm');
+            if (authForm) {
+                authForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('authEmail').value;
+                    const password = document.getElementById('authPassword').value;
+                    
+                    if (email && password) {
+                        // In a real app, this would authenticate with the server
+                        currentUser = {
+                            email: email,
+                            alias: document.getElementById('authAlias').value || 'Anonymous'
+                        };
+                        
+                        // Update UI
+                        updateAuthUI();
+                        closeAuthModal();
+                    }
+                });
+            }
+
+            // Close modal when clicking outside
+            document.getElementById('authModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeAuthModal();
+                }
+            });
+        }
+
+        // Update auth UI
+        function updateAuthUI() {
+            const authButtons = document.querySelector('.auth-buttons');
+            if (currentUser) {
+                authButtons.innerHTML = `
+                    <span style="color: #00ff41;">Welcome, ${currentUser.alias}</span>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <button class="btn btn-secondary" onclick="showAuthModal('login')">Login</button>
+                    <button class="btn btn-primary" onclick="showAuthModal('register')">Join</button>
+                `;
+            }
+        }
+
+        // Logout function
+        function logout() {
+            currentUser = null;
+            updateAuthUI();
+        }
+
+        // Helper functions
+        function getCategoryName(categoryId) {
+            const categories = {
+                'aliens': 'Aliens & UFOs',
+                'government': 'Government Secrets',
+                'ancient': 'Ancient Civilizations',
+                'tech': 'Tech Takeover',
+                'medical': 'Medical Cover-ups',
+                'financial': 'Financial Control'
+            };
+            return categories[categoryId] || 'Unknown';
+        }
+
+        function formatViews(views) {
+            if (views >= 1000) {
+                return (views / 1000).toFixed(1) + 'k';
+            }
+            return views.toString();
+        }
+
+        // Add some interactive effects
+        document.addEventListener('mousemove', function(e) {
+            const stars = document.querySelectorAll('.star');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            stars.forEach((star, index) => {
+                if (index % 10 === 0) { // Only affect every 10th star for performance
+                    const x = (mouseX - 0.5) * 20;
+                    const y = (mouseY - 0.5) * 20;
+                    star.style.transform = `translate(${x}px, ${y}px)`;
+                }
+            });
+        });
+
+   </script>
+</body>
+</html>
